@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // 원본 디자인 산출물(정적 HTML/JS) — 린트 대상 아님
+    ".original/**",
   ]),
 ]);
 

@@ -1,0 +1,470 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="xpf UI Kit" subtitle="Profile page recreation" -->
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>xpf — UI kit · Raredoughnut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="../shared/tokens.css" />
+<link rel="stylesheet" href="../shared/components.css" />
+<style>
+  body { background: var(--rd-cream-50); }
+  .kit { max-width: 1280px; margin: 0 auto; padding: 48px 48px 96px; }
+  .kit__head { display:flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .kit__head-text { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .kit__head h1 { font-family: var(--font-display); font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.03em; margin: 0; max-width: 720px; }
+  .kit__head h1 em { color: var(--rd-orange-600); font-style: italic; }
+  .kit__head .crumb { font-size: 12px; color: var(--muted-foreground); font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+  .kit__head p { margin: 0; color: var(--muted-foreground); max-width: 540px; line-height: 1.5; }
+  .kit__head a { color: var(--rd-orange-600); font-size: 13px; text-decoration: none; }
+
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .frame { display: flex; flex-direction: column; }
+  .frame__label { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .frame__shell { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); }
+
+  /* ===== xpf product chrome — mirrors MainLayout.tsx ===== */
+  .xpf-app { display: flex; flex-direction: column; height: 640px; background: var(--background); }
+  .xpf-topbar {
+    height: 48px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: center; align-items: center;
+    background: var(--background); position: sticky; top: 0; z-index: 10;
+  }
+  .xpf-topbar__inner { width: 100%; max-width: 720px; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+  .xpf-topbar__brand { font-size: 13px; font-weight: 700; cursor: pointer; display:flex; align-items:center; gap:8px; }
+  .xpf-topbar__brand img { width: 20px; height: 20px; border-radius: 4px; }
+  .xpf-topbar__nav { display: flex; gap: 4px; align-items: center; }
+  .xpf-topbar__nav button {
+    background: transparent; border: none; cursor: pointer;
+    font-family: var(--font-sans); font-size: 13px; color: var(--foreground);
+    padding: 6px 10px; border-radius: 6px;
+  }
+  .xpf-topbar__nav button:hover { background: var(--secondary); }
+  .xpf-topbar__nav button.active { color: var(--rd-orange-600); font-weight: 600; }
+
+  .xpf-main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
+  .xpf-col { width: 100%; max-width: 720px; }
+
+  /* ===== Profile hero ===== */
+  .xpf-header-image {
+    height: 160px;
+    background:
+      radial-gradient(circle at 20% 40%, oklch(0.80 0.13 55 / 0.8) 0%, transparent 40%),
+      radial-gradient(circle at 80% 60%, oklch(0.82 0.09 165 / 0.6) 0%, transparent 45%),
+      linear-gradient(135deg, var(--rd-dough-600), var(--rd-dough-800));
+    position: relative;
+  }
+  .xpf-profile-meta { padding: 0 24px 24px; position: relative; }
+  .xpf-avatar-wrap { position: relative; margin-top: -56px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .xpf-avatar {
+    width: 112px; height: 112px; border-radius: 9999px;
+    background: var(--rd-orange-500); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 500; font-size: 42px;
+    border: 4px solid var(--background);
+    box-shadow: var(--shadow-sm);
+  }
+  .xpf-profile-meta h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 16px 0 2px; }
+  .xpf-profile-meta .handle { font-family: var(--font-mono); font-size: 13px; color: var(--muted-foreground); }
+  .xpf-profile-meta .bio { font-size: 14px; line-height: 1.55; margin-top: 10px; max-width: 520px; }
+  .xpf-profile-meta .stats { display: flex; gap: 16px; margin-top: 14px; font-size: 13px; color: var(--muted-foreground); }
+  .xpf-profile-meta .stats b { color: var(--foreground); font-weight: 700; margin-right: 3px; }
+
+  /* ===== Tabs ===== */
+  .xpf-tabs { display: flex; border-bottom: 1px solid var(--border); margin-top: 24px; }
+  .xpf-tab {
+    padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: var(--muted-foreground); border-bottom: 2px solid transparent;
+  }
+  .xpf-tab.active { color: var(--foreground); border-bottom-color: var(--rd-orange-500); }
+
+  /* ===== Profile items (X's pinned link-style rows) ===== */
+  .xpf-items { padding: 16px 24px 40px; display: flex; flex-direction: column; gap: 10px; }
+  .xpf-item {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+  }
+  .xpf-item:hover { border-color: var(--rd-cream-200); background: var(--rd-cream-100); }
+  .xpf-item__ico {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--rd-cream-100); color: var(--rd-dough-800);
+  }
+  .xpf-item__ico svg { width: 20px; height: 20px; }
+  .xpf-item__body { flex: 1; min-width: 0; }
+  .xpf-item__label { font-size: 14px; font-weight: 600; margin: 0; }
+  .xpf-item__url { font-size: 12px; color: var(--muted-foreground); font-family: var(--font-mono); margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xpf-item__pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 9999px; background: var(--rd-cream-100); color: var(--rd-dough-600);
+  }
+
+  /* ===== Login screen ===== */
+  .xpf-login { padding: 64px 24px; display: flex; flex-direction: column; align-items: center; }
+  .xpf-login__mark { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 20px; }
+  .xpf-login h2 { font-family: var(--font-display); font-weight: 500; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 8px; text-align: center; }
+  .xpf-login p { color: var(--muted-foreground); margin: 0 0 28px; text-align: center; font-size: 14px; }
+  .xpf-login__card { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; }
+  .xpf-login__card label { font-size: 12px; font-weight: 600; display: block; margin-bottom: 4px; }
+  .xpf-login__foot { margin-top: 20px; font-size: 12px; color: var(--muted-foreground); text-align: center; }
+  .xpf-login__foot a { color: var(--rd-orange-600); }
+
+  /* ===== Edit profile dialog ===== */
+  .xpf-editor { padding: 24px; }
+  .xpf-editor h2 { font-family: var(--font-display); font-weight: 500; font-size: 24px; letter-spacing: -0.02em; margin: 0 0 4px; }
+  .xpf-editor p.sub { font-size: 13px; color: var(--muted-foreground); margin: 0 0 20px; }
+  .xpf-editor__section {
+    background: var(--rd-cream-50); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; margin-bottom: 12px;
+    display: grid; grid-template-columns: 120px 1fr auto; gap: 14px; align-items: center;
+  }
+  .xpf-editor__section .rd-caption { margin: 0; }
+  .xpf-editor__section .rd-label { margin: 0; font-size: 14px; }
+  .xpf-editor__section .value { font-size: 13px; color: var(--muted-foreground); margin: 2px 0 0; }
+
+  /* Profile dropper-style: add item row */
+  .xpf-additem {
+    padding: 14px 16px; background: var(--rd-cream-100); border: 1px dashed var(--rd-cream-200);
+    border-radius: var(--radius); display: flex; align-items: center; justify-content: center; gap: 8px;
+    color: var(--rd-dough-600); font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .xpf-additem:hover { background: oklch(from var(--rd-cream-100) calc(l - 0.02) c h); }
+
+  /* Callouts */
+  .callout {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px;
+    display: flex; gap: 10px; margin-top: 24px; font-size: 13px; color: var(--rd-dough-800);
+  }
+  .callout b { color: var(--rd-dough-900); }
+</style>
+</head>
+<body>
+
+<div class="kit">
+  <div class="kit__head">
+    <div class="kit__head-text">
+      <div class="crumb">← <a href="../index.html">Raredoughnut DS</a> · UI kit</div>
+      <h1>xpf — <em>extra profile</em> for X</h1>
+      <p>Single-column, X-profile–style layout built on the Raredoughnut tokens. Recreates <code class="rd-mono" style="font-size:12px;">MainLayout.tsx</code>, the profile hero, and the pinned-item list from <code class="rd-mono" style="font-size:12px;">onehunnitconst/xpf-vite</code>.</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="rd-eyebrow" style="margin-bottom:8px;">Source</div>
+      <code class="rd-mono" style="font-size:12px;">xpf-vite · main</code>
+    </div>
+  </div>
+
+  <div class="frames">
+    <!-- ===== Frame 1: My profile ===== -->
+    <div class="frame">
+      <div class="frame__label">01 · /me · 내 프로필</div>
+      <div class="frame__shell">
+        <div class="xpf-app">
+          <div class="xpf-topbar">
+            <div class="xpf-topbar__inner">
+              <div class="xpf-topbar__brand"><img src="../assets/logo.png" alt=""/>XPF Beta</div>
+              <div class="xpf-topbar__nav">
+                <button>홈</button>
+                <button class="active">내 프로필</button>
+                <button>프로필 편집</button>
+                <button>로그아웃</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="xpf-main">
+            <div class="xpf-col">
+              <div class="xpf-header-image"></div>
+              <div class="xpf-profile-meta">
+                <div class="xpf-avatar-wrap">
+                  <div class="xpf-avatar">쉐프</div>
+                  <button class="rd-btn rd-btn--outline rd-btn--sm" style="margin-bottom:4px;">편집</button>
+                </div>
+                <h1>쉐프 도넛</h1>
+                <div class="handle">@onehunnitconst</div>
+                <p class="bio">리듬게임 좋아합니다. maimai DX 14+ 위주로 연습 중.<br/>도넛 가게 주인장이기도 합니다 🍩</p>
+                <div class="stats">
+                  <span><b>12</b>개의 링크</span>
+                  <span><b>48</b>회 방문</span>
+                  <span>2026년 1월 가입</span>
+                </div>
+              </div>
+
+              <div class="xpf-tabs">
+                <div class="xpf-tab active">링크</div>
+                <div class="xpf-tab">프리셋</div>
+                <div class="xpf-tab">통계</div>
+              </div>
+
+              <div class="xpf-items">
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.92 0.04 20); color: oklch(0.45 0.18 25);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">SoundCloud</p>
+                    <p class="xpf-item__url">soundcloud.com/raredoughnut</p>
+                  </div>
+                  <span class="xpf-item__pill">MUSIC</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.94 0.05 95); color: oklch(0.50 0.14 80);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">Instagram</p>
+                    <p class="xpf-item__url">instagram.com/ohc.donut</p>
+                  </div>
+                  <span class="xpf-item__pill">SOCIAL</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.92 0.03 160); color: oklch(0.48 0.12 160);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">maimai 플레이 기록</p>
+                    <p class="xpf-item__url">otogedojo.onehunnitconst.kr/u/ohc</p>
+                  </div>
+                  <span class="xpf-item__pill">GAME</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.92 0.03 260); color: oklch(0.48 0.14 260);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">GitHub</p>
+                    <p class="xpf-item__url">github.com/onehunnitconst</p>
+                  </div>
+                  <span class="xpf-item__pill">DEV</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: var(--rd-cream-100);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10M7 12h10M7 17h6"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">Blog — today-i-learned</p>
+                    <p class="xpf-item__url">ohcdev.onehunnitconst.kr</p>
+                  </div>
+                  <span class="xpf-item__pill">WRITE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <span>✦</span>
+        <div><b>Key moves:</b> Sticky topbar (h:48, nav=link variant). Profile hero image is a dough-tone gradient. Avatar -56px overlap. Tabs below meta match X's pinned-tweet/tabs pattern.</div>
+      </div>
+    </div>
+
+    <!-- ===== Frame 2: Login ===== -->
+    <div class="frame">
+      <div class="frame__label">02 · /login · 로그인</div>
+      <div class="frame__shell">
+        <div class="xpf-app">
+          <div class="xpf-topbar">
+            <div class="xpf-topbar__inner">
+              <div class="xpf-topbar__brand"><img src="../assets/logo.png" alt=""/>XPF Beta</div>
+              <div class="xpf-topbar__nav">
+                <button class="active">홈</button>
+                <button>로그인</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="xpf-main">
+            <div class="xpf-col">
+              <div class="xpf-login">
+                <img class="xpf-login__mark" src="../assets/logo.png" alt="" />
+                <h2>eXtra Profile</h2>
+                <p>X 프로필만으로는 부족한 당신을 위해.<br/>링크, 프리셋, 기록을 한 곳에.</p>
+                <div class="xpf-login__card">
+                  <div>
+                    <label>X 계정 아이디</label>
+                    <input class="rd-input" placeholder="@onehunnitconst" />
+                  </div>
+                  <div>
+                    <label>비밀번호</label>
+                    <input class="rd-input" type="password" placeholder="••••••••" />
+                  </div>
+                  <button class="rd-btn rd-btn--primary rd-btn--lg" style="margin-top:4px;">로그인</button>
+                  <button class="rd-btn rd-btn--outline rd-btn--lg">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    X 계정으로 계속하기
+                  </button>
+                  <div class="xpf-login__foot">
+                    아직 계정이 없으신가요? <a href="#">회원가입</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <span>✦</span>
+        <div><b>Key moves:</b> Logo-first, Fraunces for the tagline ("eXtra Profile"), copy + label pairs use <code class="rd-mono" style="font-size:12px;">.rd-label</code> → <code class="rd-mono" style="font-size:12px;">.rd-input</code>. Primary CTA first, X-sign-in second.</div>
+      </div>
+    </div>
+
+    <!-- ===== Frame 3: Edit profile ===== -->
+    <div class="frame">
+      <div class="frame__label">03 · /me/edit · 프로필 편집</div>
+      <div class="frame__shell">
+        <div class="xpf-app">
+          <div class="xpf-topbar">
+            <div class="xpf-topbar__inner">
+              <div class="xpf-topbar__brand"><img src="../assets/logo.png" alt=""/>XPF Beta</div>
+              <div class="xpf-topbar__nav">
+                <button>홈</button>
+                <button>내 프로필</button>
+                <button class="active">프로필 편집</button>
+                <button>로그아웃</button>
+              </div>
+            </div>
+          </div>
+          <div class="xpf-main">
+            <div class="xpf-col">
+              <div class="xpf-editor">
+                <h2>프로필 편집</h2>
+                <p class="sub">변경사항은 저장 버튼을 누를 때까지 반영되지 않습니다.</p>
+
+                <div class="xpf-editor__section">
+                  <p class="rd-label">헤더 이미지</p>
+                  <div>
+                    <div style="height: 80px; border-radius: 8px; background: linear-gradient(135deg, var(--rd-dough-600), var(--rd-dough-800));"></div>
+                    <p class="value" style="margin-top:6px;">1500 × 500 권장</p>
+                  </div>
+                  <button class="rd-btn rd-btn--outline rd-btn--sm">변경</button>
+                </div>
+
+                <div class="xpf-editor__section">
+                  <p class="rd-label">프로필 이미지</p>
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div class="rd-avatar rd-avatar--md" style="background: var(--rd-orange-500); color:#fff;">쉐프</div>
+                    <p class="value">400 × 400 권장</p>
+                  </div>
+                  <button class="rd-btn rd-btn--outline rd-btn--sm">변경</button>
+                </div>
+
+                <div class="xpf-editor__section">
+                  <p class="rd-label">닉네임</p>
+                  <input class="rd-input" value="쉐프 도넛" />
+                  <span class="rd-caption">6/30</span>
+                </div>
+
+                <div class="xpf-editor__section">
+                  <p class="rd-label">X 계정 아이디</p>
+                  <input class="rd-input" value="@onehunnitconst" />
+                  <span class="rd-badge rd-badge--mint" style="background: oklch(0.88 0.10 155);">✓ 인증됨</span>
+                </div>
+
+                <div class="xpf-editor__section" style="grid-template-columns: 120px 1fr; align-items: start;">
+                  <p class="rd-label" style="padding-top:8px;">자기소개</p>
+                  <textarea class="rd-textarea" rows="3">리듬게임 좋아합니다. maimai DX 14+ 위주로 연습 중.
+도넛 가게 주인장이기도 합니다 🍩</textarea>
+                </div>
+
+                <div style="display:flex; gap:8px; justify-content: flex-end; margin-top:20px;">
+                  <button class="rd-btn rd-btn--ghost">취소</button>
+                  <button class="rd-btn rd-btn--accent">저장</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <span>✦</span>
+        <div><b>Key moves:</b> Every editable field is a cream-tinted card row with fixed label column (120px). Save uses accent (orange) — the only place accent fills a button in xpf; Cancel stays ghost.</div>
+      </div>
+    </div>
+
+    <!-- ===== Frame 4: Public profile ===== -->
+    <div class="frame">
+      <div class="frame__label">04 · /u/:id · 공개 프로필 (다른 사람이 보는 뷰)</div>
+      <div class="frame__shell">
+        <div class="xpf-app">
+          <div class="xpf-topbar">
+            <div class="xpf-topbar__inner">
+              <div class="xpf-topbar__brand"><img src="../assets/logo.png" alt=""/>XPF Beta</div>
+              <div class="xpf-topbar__nav">
+                <button class="active">홈</button>
+                <button>로그인</button>
+              </div>
+            </div>
+          </div>
+          <div class="xpf-main">
+            <div class="xpf-col">
+              <div class="xpf-header-image" style="background:
+                radial-gradient(circle at 20% 30%, oklch(0.82 0.09 165 / 0.8) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, oklch(0.78 0.15 10 / 0.7) 0%, transparent 45%),
+                linear-gradient(135deg, var(--rd-sprinkle-sky), var(--rd-sprinkle-grape));"></div>
+              <div class="xpf-profile-meta">
+                <div class="xpf-avatar-wrap">
+                  <div class="xpf-avatar" style="background: var(--rd-sprinkle-grape);">Y</div>
+                  <button class="rd-btn rd-btn--primary rd-btn--sm" style="margin-bottom:4px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    X에서 팔로우
+                  </button>
+                </div>
+                <h1>유리 ユリ</h1>
+                <div class="handle">@yuri_sdvx</div>
+                <p class="bio">SDVX Hierophant · iidx 皆伝. 츠이토로 곡 리뷰합니다.</p>
+                <div class="stats">
+                  <span><b>9</b>개의 링크 · <b>1.2k</b>회 방문</span>
+                </div>
+              </div>
+
+              <div class="xpf-items">
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.92 0.04 305); color: oklch(0.50 0.18 305);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">SDVX arcade-songs profile</p>
+                    <p class="xpf-item__url">arcade-songs.zetaraku.dev/sdvx/?u=yuri</p>
+                  </div>
+                  <span class="xpf-item__pill">GAME</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.92 0.03 180); color: oklch(0.45 0.12 180);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">YouTube — 플레이 영상</p>
+                    <p class="xpf-item__url">youtube.com/@yuri_sdvx</p>
+                  </div>
+                  <span class="xpf-item__pill">VIDEO</span>
+                </div>
+                <div class="xpf-item">
+                  <div class="xpf-item__ico" style="background: oklch(0.94 0.04 95); color: oklch(0.50 0.14 80);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>
+                  </div>
+                  <div class="xpf-item__body">
+                    <p class="xpf-item__label">Instagram</p>
+                    <p class="xpf-item__url">instagram.com/yuri.sdvx</p>
+                  </div>
+                  <span class="xpf-item__pill">SOCIAL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <span>✦</span>
+        <div><b>Key moves:</b> Public view hides edit affordances; follow-on-X CTA replaces edit button. Different avatar/header color demonstrates how the sprinkle palette individualizes profiles without adding new tokens.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

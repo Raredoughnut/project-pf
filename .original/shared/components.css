@@ -1,0 +1,134 @@
+/* ========================================================================
+   RAREDOUGHNUT — Component styles
+   Mirror of shadcn/ui primitives both codebases use, skinned with brand tokens.
+   ======================================================================== */
+
+/* ---------- Typography ---------- */
+.rd-h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin: 0; }
+.rd-h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em;  line-height: 1.2;  margin: 0; }
+.rd-h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.3;  margin: 0; }
+.rd-h4 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em;  line-height: 1.4;  margin: 0; }
+.rd-body      { font-size: 15px; font-weight: 400; line-height: 1.55; margin: 0; }
+.rd-body-sm   { font-size: 13px; font-weight: 400; line-height: 1.5;  margin: 0; color: var(--muted-foreground); }
+.rd-caption   { font-size: 12px; font-weight: 500; line-height: 1.4;  margin: 0; color: var(--muted-foreground); letter-spacing: 0.01em; }
+.rd-label     { font-size: 13px; font-weight: 600; line-height: 1.4;  margin: 0; }
+.rd-eyebrow   { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rd-dough-600); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.rd-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 36px; padding: 0 14px;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+  border-radius: var(--radius-md); border: 1px solid transparent;
+  cursor: pointer; transition: background 120ms ease, border-color 120ms ease, transform 80ms ease, box-shadow 120ms ease;
+  white-space: nowrap; user-select: none; line-height: 1;
+}
+.rd-btn:active { transform: translateY(1px); }
+.rd-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.rd-btn--primary { background: var(--primary); color: var(--primary-foreground); }
+.rd-btn--primary:hover { background: oklch(from var(--primary) calc(l + 0.06) c h); }
+
+.rd-btn--accent { background: var(--rd-orange-500); color: #fff; }
+.rd-btn--accent:hover { background: var(--rd-orange-600); }
+
+.rd-btn--outline { background: transparent; color: var(--foreground); border-color: var(--border); }
+.rd-btn--outline:hover { background: var(--secondary); }
+
+.rd-btn--ghost { background: transparent; color: var(--foreground); }
+.rd-btn--ghost:hover { background: var(--secondary); }
+
+.rd-btn--link { background: transparent; color: var(--foreground); padding: 0 4px; height: auto; }
+.rd-btn--link:hover { color: var(--rd-orange-600); text-decoration: underline; text-underline-offset: 4px; }
+
+.rd-btn--destructive { background: var(--destructive); color: #fff; }
+.rd-btn--destructive:hover { background: oklch(from var(--destructive) calc(l - 0.05) c h); }
+
+.rd-btn--sm  { height: 30px; padding: 0 10px; font-size: 13px; border-radius: var(--radius-sm); }
+.rd-btn--lg  { height: 44px; padding: 0 18px; font-size: 15px; }
+.rd-btn--icon { width: 36px; padding: 0; }
+.rd-btn--icon.rd-btn--sm { width: 30px; height: 30px; }
+
+/* ---------- Card ---------- */
+.rd-card {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.rd-card--flat   { box-shadow: none; }
+.rd-card--raised { box-shadow: var(--shadow-sm); border-color: transparent; }
+.rd-card--hover  { transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease; }
+.rd-card--hover:hover { box-shadow: var(--shadow-md); border-color: var(--rd-cream-200); }
+
+/* ---------- Input ---------- */
+.rd-input, .rd-textarea {
+  width: 100%;
+  font-family: var(--font-sans); font-size: 14px; color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  padding: 0 12px; height: 36px;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+  outline: none;
+}
+.rd-textarea { padding: 10px 12px; height: auto; min-height: 80px; resize: vertical; line-height: 1.5; }
+.rd-input:focus, .rd-textarea:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px oklch(from var(--ring) l c h / 0.2);
+}
+.rd-input::placeholder, .rd-textarea::placeholder { color: var(--muted-foreground); }
+
+/* ---------- Badge ---------- */
+.rd-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+  border-radius: var(--radius-full);
+  background: var(--secondary); color: var(--secondary-foreground);
+  line-height: 1; white-space: nowrap;
+}
+.rd-badge--outline { background: transparent; border: 1px solid var(--border); color: var(--foreground); }
+.rd-badge--accent  { background: var(--rd-orange-500); color: #fff; }
+.rd-badge--solid   { background: var(--rd-dough-900); color: var(--rd-cream-50); }
+.rd-badge--pink    { background: var(--rd-sprinkle-pink);   color: var(--rd-dough-900); }
+.rd-badge--mint    { background: var(--rd-sprinkle-mint);   color: var(--rd-dough-900); }
+.rd-badge--sky     { background: var(--rd-sprinkle-sky);    color: var(--rd-dough-900); }
+.rd-badge--lemon   { background: var(--rd-sprinkle-lemon);  color: var(--rd-dough-900); }
+.rd-badge--grape   { background: var(--rd-sprinkle-grape);  color: #fff; }
+
+/* ---------- Avatar ---------- */
+.rd-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 9999px; overflow: hidden;
+  background: var(--secondary); color: var(--muted-foreground);
+  font-weight: 700; flex-shrink: 0;
+}
+.rd-avatar--sm { width: 28px; height: 28px; font-size: 11px; }
+.rd-avatar--md { width: 40px; height: 40px; font-size: 14px; }
+.rd-avatar--lg { width: 72px; height: 72px; font-size: 24px; }
+.rd-avatar--xl { width: 112px; height: 112px; font-size: 36px; border: 4px solid var(--card); }
+.rd-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Chip (difficulty / rank / small pills) ---------- */
+.rd-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; padding: 4px 8px;
+  font-size: 12px; font-weight: 700;
+  border-radius: var(--radius-sm);
+  line-height: 1;
+}
+
+/* ---------- Divider ---------- */
+.rd-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ---------- Nav item ---------- */
+.rd-nav-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; font-size: 13px; font-weight: 500; color: var(--foreground);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.rd-nav-item:hover { background: var(--secondary); }
+.rd-nav-item--active { color: var(--rd-orange-600); font-weight: 700; }

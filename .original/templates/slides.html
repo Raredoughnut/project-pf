@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Raredoughnut — Slide Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="../shared/tokens.css" />
+<link rel="stylesheet" href="../shared/components.css" />
+<style>
+  body { margin: 0; background: #000; }
+  section { padding: 96px 112px; background: var(--rd-cream-50); color: var(--rd-dough-900); overflow: hidden; position: relative; }
+
+  /* Shared slide chrome */
+  .chrome-logo { position: absolute; top: 48px; left: 48px; display: flex; align-items: center; gap: 12px; }
+  .chrome-logo img { width: 36px; height: 36px; }
+  .chrome-logo b { font-family: var(--font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+  .chrome-pager { position: absolute; bottom: 48px; right: 48px; font-family: var(--font-mono); font-size: 14px; color: var(--rd-dough-600); letter-spacing: 0.04em; }
+  .chrome-eyebrow { position: absolute; top: 48px; right: 48px; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rd-orange-600); }
+
+  /* ===== Slide 1: Cover ===== */
+  .cover {
+    background:
+      radial-gradient(circle at 12% 90%, oklch(0.82 0.13 55 / 0.35) 0%, transparent 45%),
+      radial-gradient(circle at 88% 12%, oklch(0.82 0.09 165 / 0.25) 0%, transparent 45%),
+      var(--rd-cream-50);
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  }
+  .cover h1 { font-family: var(--font-display); font-weight: 500; font-size: 200px; line-height: 0.92; letter-spacing: -0.04em; margin: 0; max-width: 1550px; }
+  .cover h1 em { font-style: italic; color: var(--rd-orange-600); }
+  .cover .sub { font-family: var(--font-display); font-style: italic; font-size: 40px; font-weight: 400; margin-top: 40px; color: var(--rd-dough-600); }
+  .cover .meta { position: absolute; bottom: 96px; left: 112px; display: flex; gap: 48px; font-family: var(--font-mono); font-size: 18px; color: var(--rd-dough-600); }
+  .cover .meta b { color: var(--rd-dough-900); }
+  .cover .ring {
+    position: absolute; top: 120px; right: 80px;
+    width: 520px; height: 520px;
+    border: 56px solid var(--rd-orange-500);
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 32px var(--rd-cream-50), 0 32px 80px oklch(0.36 0.075 40 / 0.2);
+  }
+  .cover .ring::before, .cover .ring::after {
+    content: ''; position: absolute; border-radius: 9999px;
+  }
+  .cover .ring::before { width: 60px; height: 16px; background: var(--rd-sprinkle-pink); top: 60px; left: -30px; transform: rotate(40deg); }
+  .cover .ring::after { width: 60px; height: 16px; background: var(--rd-sprinkle-mint); bottom: 50px; right: -20px; transform: rotate(-25deg); }
+  .cover .sprinkle-extra {
+    position: absolute; border-radius: 9999px;
+  }
+  .cover .s1 { width: 52px; height: 14px; background: var(--rd-sprinkle-sky); top: 200px; right: 540px; transform: rotate(15deg); }
+  .cover .s2 { width: 48px; height: 14px; background: var(--rd-sprinkle-lemon); bottom: 180px; right: 560px; transform: rotate(-40deg); }
+
+  /* ===== Section header ===== */
+  .section-h {
+    background: var(--rd-dough-900); color: var(--rd-cream-50);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-h .num { font-family: var(--font-mono); font-size: 18px; letter-spacing: 0.2em; color: var(--rd-orange-500); margin-bottom: 32px; }
+  .section-h h2 { font-family: var(--font-display); font-size: 160px; font-weight: 500; line-height: 0.95; letter-spacing: -0.035em; margin: 0; }
+  .section-h h2 em { font-style: italic; color: var(--rd-orange-500); }
+  .section-h .description { font-size: 28px; color: oklch(0.85 0.03 70); margin-top: 40px; max-width: 1200px; line-height: 1.4; }
+
+  /* ===== Content slide ===== */
+  .content-slide h2 { font-family: var(--font-display); font-size: 80px; font-weight: 500; letter-spacing: -0.025em; margin: 60px 0 12px; line-height: 1.05; }
+  .content-slide h2 em { font-style: italic; color: var(--rd-orange-600); }
+  .content-slide .lede { font-size: 24px; color: var(--rd-dough-600); margin: 0 0 56px; max-width: 1100px; line-height: 1.4; }
+
+  /* 3-up cards */
+  .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .three-up .card {
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    padding: 40px; display: flex; flex-direction: column; gap: 20px;
+    min-height: 500px;
+  }
+  .three-up .card .ico { width: 72px; height: 72px; border-radius: 18px; display: flex; align-items: center; justify-content: center; }
+  .three-up .card .ico svg { width: 36px; height: 36px; }
+  .three-up .card h3 { font-size: 32px; font-weight: 700; letter-spacing: -0.015em; margin: 0; }
+  .three-up .card p { font-size: 18px; line-height: 1.55; color: var(--rd-dough-800); margin: 0; }
+  .three-up .card .tag { margin-top: auto; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rd-dough-600); }
+
+  /* Data slide */
+  .data-slide .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+  .data-slide .stat { border-top: 2px solid var(--rd-dough-900); padding-top: 24px; }
+  .data-slide .stat .n { font-family: var(--font-display); font-size: 140px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; }
+  .data-slide .stat .n em { font-style: italic; color: var(--rd-orange-600); }
+  .data-slide .stat .lbl { font-size: 22px; color: var(--rd-dough-600); margin-top: 16px; max-width: 420px; line-height: 1.4; }
+
+  /* Split slide */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; height: 100%; align-items: center; }
+  .split h2 { font-family: var(--font-display); font-size: 88px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.0; margin: 0 0 28px; }
+  .split p { font-size: 22px; line-height: 1.5; color: var(--rd-dough-800); margin: 0 0 20px; max-width: 680px; }
+  .split .mock {
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px; box-shadow: 0 24px 60px oklch(0.36 0.075 40 / 0.14);
+  }
+  .split .mock .hdr { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .split .mock .hdr .dot { width: 10px; height: 10px; border-radius: 9999px; background: var(--rd-dough-200); }
+  .split .mock .row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px;
+  }
+  .split .mock .row .title { font-size: 18px; font-weight: 700; margin: 0 0 6px; }
+  .split .mock .row .tags { display: flex; gap: 6px; align-items: center; }
+  .split .mock .row .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 9999px; background: var(--rd-cream-100); }
+  .split .mock .row .badge--solid { background: var(--rd-dough-900); color: var(--rd-cream-50); }
+  .split .mock .row .chip { font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: oklch(0.78 0.15 10); color: #fff; }
+  .split .mock .row .rank { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; }
+
+  /* Closing slide */
+  .closing {
+    background: var(--rd-orange-500); color: #fff;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  }
+  .closing h2 { font-family: var(--font-display); font-size: 200px; font-weight: 500; letter-spacing: -0.04em; margin: 0; line-height: 0.95; }
+  .closing h2 em { font-style: italic; }
+  .closing .sub { font-size: 32px; margin-top: 32px; opacity: 0.92; }
+  .closing .contact { position: absolute; bottom: 80px; font-family: var(--font-mono); font-size: 20px; letter-spacing: 0.04em; }
+  .closing .chrome-pager { color: rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- 1 · Cover -->
+  <section class="cover" data-label="Cover">
+    <div class="chrome-logo"><img src="../assets/logo.png"/><b>Raredoughnut</b></div>
+    <div class="chrome-eyebrow">2026 · 브랜드 소개</div>
+    <h1>Rare by<br/><em>design.</em></h1>
+    <div class="sub">한 끼의 도넛, 한 번의 인상.</div>
+    <div class="meta">
+      <div><b>프레젠테이션</b> · Onehunnitconst</div>
+      <div><b>발행</b> · 2026년 4월</div>
+    </div>
+    <div class="ring"></div>
+    <div class="sprinkle-extra s1"></div>
+    <div class="sprinkle-extra s2"></div>
+    <div class="chrome-pager">01 / 06</div>
+  </section>
+
+  <!-- 2 · Section header -->
+  <section class="section-h" data-label="Section — Who we are">
+    <div class="chrome-logo"><img src="../assets/logo.png"/><b style="color: var(--rd-cream-50);">Raredoughnut</b></div>
+    <div class="num">01 · Who we are</div>
+    <h2>작은 팀,<br/><em>진짜 제품을</em><br/>만들고 있습니다.</h2>
+    <p class="description">두 개의 웹 서비스 — 한 사람의 프로필을 더 풍부하게 하는 xpf, 리듬게이머의 연습을 체계화하는 otogedojo. 공통점은 한국어 UI와 따뜻한 색감.</p>
+    <div class="chrome-pager" style="color: oklch(0.70 0.02 70);">02 / 06</div>
+  </section>
+
+  <!-- 3 · Three-up content -->
+  <section class="content-slide" data-label="What we make">
+    <div class="chrome-logo"><img src="../assets/logo.png"/><b>Raredoughnut</b></div>
+    <div class="chrome-eyebrow">02 · What we make</div>
+    <h2>두 가지 제품,<br/><em>하나의 언어.</em></h2>
+    <p class="lede">공유된 디자인 토큰 위에서 각 제품은 고유한 기능을 갖되 같은 온도를 공유합니다.</p>
+
+    <div class="three-up">
+      <div class="card">
+        <div class="ico" style="background: oklch(0.94 0.05 55);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rd-orange-600)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div>
+        <h3>xpf</h3>
+        <p>X(Twitter) 프로필로는 담을 수 없는 링크, 프리셋, 기록을 한 페이지에 모읍니다. extra profile for X.</p>
+        <div class="tag">Web · React 19 · Vite</div>
+      </div>
+      <div class="card">
+        <div class="ico" style="background: oklch(0.92 0.05 305);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rd-sprinkle-grape)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <h3>otogedojo</h3>
+        <p>리듬게임의 악곡·보면 목표를 투두리스트로 관리하고, 고수들의 과제를 공유받아 도전합니다.</p>
+        <div class="tag">Web · Next.js · NestJS</div>
+      </div>
+      <div class="card">
+        <div class="ico" style="background: oklch(0.92 0.03 165);"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(0.50 0.12 165)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+        <h3>Raredoughnut DS</h3>
+        <p>두 제품을 연결하는 공통 토큰·컴포넌트 시스템. 따뜻한 도넛 팔레트와 Pretendard 기반의 한국어 타이포그래피.</p>
+        <div class="tag">Design System · v0.1</div>
+      </div>
+    </div>
+    <div class="chrome-pager">03 / 06</div>
+  </section>
+
+  <!-- 4 · Data slide -->
+  <section class="content-slide data-slide" data-label="By the numbers">
+    <div class="chrome-logo"><img src="../assets/logo.png"/><b>Raredoughnut</b></div>
+    <div class="chrome-eyebrow">03 · By the numbers</div>
+    <h2>지금까지의 <em>숫자들.</em></h2>
+    <p class="lede">두 제품은 아직 초기지만, 실사용자 기반으로 빠르게 성장하고 있습니다.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="n">1,200<em>+</em></div>
+        <div class="lbl">xpf 베타 가입자 · 매주 8% 증가 중</div>
+      </div>
+      <div class="stat">
+        <div class="n">14<em>.5</em></div>
+        <div class="lbl">otogedojo 사용자 평균 목표 난이도 (maimai DX 기준)</div>
+      </div>
+      <div class="stat">
+        <div class="n"><em>94</em>%</div>
+        <div class="lbl">챌린지 등록 후 7일 내 첫 완료 달성률</div>
+      </div>
+    </div>
+    <div class="chrome-pager">04 / 06</div>
+  </section>
+
+  <!-- 5 · Split — product in action -->
+  <section data-label="Product in action">
+    <div class="chrome-logo"><img src="../assets/logo.png"/><b>Raredoughnut</b></div>
+    <div class="chrome-eyebrow">04 · Product in action</div>
+    <div class="split" style="margin-top: 40px;">
+      <div>
+        <h2>목표가 있는<br/>연습은<br/><em>다릅니다.</em></h2>
+        <p>otogedojo는 당신의 리듬게임 목표를 투두리스트로 만듭니다. 악곡을 검색하고, 보면을 선택하고, 목표 랭크·램프를 지정하면 — 완료 전까지 눈에 띄는 곳에 남습니다.</p>
+        <p style="color: var(--rd-orange-600); font-weight: 600;">"챌린지를 등록한 유저는 그렇지 않은 유저보다 3배 더 자주 돌아옵니다."</p>
+      </div>
+      <div class="mock">
+        <div class="hdr"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span style="margin-left: 12px; font-size: 12px; font-family: var(--font-mono); color: var(--muted-foreground);">otogedojo.app</span></div>
+        <div style="padding: 4px 2px 0;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rd-dough-600); margin-bottom: 12px;">나의 챌린지 · 진행 중</div>
+          <div class="row">
+            <div>
+              <p class="title">Falsum Atlantis.</p>
+              <div class="tags"><span class="badge">DX</span><span class="badge badge--solid">MASTER</span><span class="chip">14 (14.5)</span></div>
+            </div>
+            <div style="text-align:right;"><div style="font-size: 10px; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.08em;">랭크</div><div class="rank">SSS+</div></div>
+          </div>
+          <div class="row">
+            <div>
+              <p class="title">Rooftop Run: Act1</p>
+              <div class="tags"><span class="badge">STD</span><span class="badge" style="background: var(--rd-sprinkle-pink);">Re:MASTER</span><span class="chip" style="background: oklch(0.72 0.16 35);">13 (13.2)</span></div>
+            </div>
+            <div style="text-align:right;"><div style="font-size: 10px; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.08em;">콤보</div><div class="rank" style="color: var(--rd-orange-600);">AP</div></div>
+          </div>
+          <div class="row" style="background: oklch(0.97 0.03 155); border-color: oklch(0.88 0.07 155);">
+            <div>
+              <p class="title" style="text-decoration: line-through; color: var(--muted-foreground);">PANDORA PARADOXXX</p>
+              <div class="tags"><span class="badge">DX</span><span class="badge badge--solid">MASTER</span><span class="badge" style="background: oklch(0.80 0.12 155);">✓ 완료</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chrome-pager">05 / 06</div>
+  </section>
+
+  <!-- 6 · Closing -->
+  <section class="closing" data-label="Thanks">
+    <h2>Stay <em>rare.</em></h2>
+    <div class="sub">감사합니다. 질문이 있다면 언제든.</div>
+    <div class="contact">xpf@onehunnitconst.kr · @onehunnitconst</div>
+    <div class="chrome-pager">06 / 06</div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

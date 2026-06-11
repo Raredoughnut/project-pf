@@ -1,0 +1,129 @@
+/* ========================================================================
+   RAREDOUGHNUT — Design Tokens
+   Shared foundations for xpf, otogedojo, and the parent brand.
+   Extends the shadcn/ui token contract used in both codebases.
+   ======================================================================== */
+
+:root {
+  /* ---------- Brand palette (from logo) ---------- */
+  /* Core doughnut tones */
+  --rd-cream-50:   oklch(0.985 0.012 80);    /* page background, softest */
+  --rd-cream-100:  oklch(0.965 0.020 82);    /* card tint, hover row */
+  --rd-cream-200:  oklch(0.935 0.028 82);    /* dividers on cream */
+
+  --rd-dough-200:  oklch(0.860 0.055 70);    /* glaze highlight */
+  --rd-dough-400:  oklch(0.700 0.095 60);    /* mid dough */
+  --rd-dough-600:  oklch(0.540 0.095 45);    /* baked crust */
+  --rd-dough-800:  oklch(0.360 0.075 40);    /* deep roast (body text-ish) */
+  --rd-dough-900:  oklch(0.245 0.045 40);    /* espresso — primary text */
+
+  /* Orange — the "rare" accent, from wordmark dot/sprinkle */
+  --rd-orange-300: oklch(0.820 0.130 55);
+  --rd-orange-500: oklch(0.720 0.175 50);    /* primary accent */
+  --rd-orange-600: oklch(0.640 0.180 42);    /* hover/pressed */
+
+  /* Sprinkle colors — used sparingly for tags, game chips, data viz */
+  --rd-sprinkle-pink:   oklch(0.780 0.150 10);
+  --rd-sprinkle-mint:   oklch(0.820 0.090 165);
+  --rd-sprinkle-sky:    oklch(0.800 0.100 230);
+  --rd-sprinkle-lemon:  oklch(0.900 0.130 95);
+  --rd-sprinkle-grape:  oklch(0.620 0.160 310);
+
+  /* Status */
+  --rd-success:  oklch(0.680 0.140 150);
+  --rd-warning:  oklch(0.780 0.150 75);
+  --rd-danger:   oklch(0.620 0.210 25);
+
+  /* ---------- shadcn/ui contract — LIGHT (the default brand mode) ---------- */
+  --background:          var(--rd-cream-50);
+  --foreground:          var(--rd-dough-900);
+
+  --card:                #ffffff;
+  --card-foreground:     var(--rd-dough-900);
+
+  --popover:             #ffffff;
+  --popover-foreground:  var(--rd-dough-900);
+
+  --primary:             var(--rd-dough-900);
+  --primary-foreground:  var(--rd-cream-50);
+
+  --secondary:           var(--rd-cream-100);
+  --secondary-foreground: var(--rd-dough-900);
+
+  --muted:               var(--rd-cream-100);
+  --muted-foreground:    var(--rd-dough-600);
+
+  --accent:              var(--rd-orange-500);
+  --accent-foreground:   #ffffff;
+
+  --destructive:         var(--rd-danger);
+  --destructive-foreground: #ffffff;
+
+  --border:              var(--rd-cream-200);
+  --input:               var(--rd-cream-200);
+  --ring:                var(--rd-orange-500);
+
+  /* Radius scale */
+  --radius:              0.625rem;   /* 10px — default card/button */
+  --radius-sm:           0.375rem;
+  --radius-md:           0.5rem;
+  --radius-lg:           0.625rem;
+  --radius-xl:           0.875rem;
+  --radius-full:         9999px;
+
+  /* Spacing — 4px base */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px;  --space-6: 24px;  --space-8: 32px;  --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+  /* Elevation — warm-tinted shadows, not pure black */
+  --shadow-xs: 0 1px 2px oklch(0.360 0.075 40 / 0.06);
+  --shadow-sm: 0 1px 3px oklch(0.360 0.075 40 / 0.08), 0 1px 2px oklch(0.360 0.075 40 / 0.04);
+  --shadow-md: 0 4px 12px oklch(0.360 0.075 40 / 0.10), 0 2px 4px oklch(0.360 0.075 40 / 0.05);
+  --shadow-lg: 0 12px 32px oklch(0.360 0.075 40 / 0.12), 0 4px 8px oklch(0.360 0.075 40 / 0.06);
+
+  /* Typography */
+  --font-sans: "Pretendard Variable", "Pretendard", "Geist", ui-sans-serif,
+               -apple-system, "Apple SD Gothic Neo", "Malgun Gothic",
+               "맑은 고딕", system-ui, sans-serif;
+  --font-display: "Fraunces", "Pretendard Variable", Georgia, serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+.dark {
+  --background:          oklch(0.180 0.020 50);
+  --foreground:          var(--rd-cream-50);
+  --card:                oklch(0.230 0.025 50);
+  --card-foreground:     var(--rd-cream-50);
+  --popover:             oklch(0.230 0.025 50);
+  --popover-foreground:  var(--rd-cream-50);
+  --primary:             var(--rd-cream-50);
+  --primary-foreground:  var(--rd-dough-900);
+  --secondary:           oklch(0.280 0.025 50);
+  --secondary-foreground: var(--rd-cream-50);
+  --muted:               oklch(0.280 0.025 50);
+  --muted-foreground:    oklch(0.720 0.025 70);
+  --accent:              var(--rd-orange-500);
+  --accent-foreground:   #ffffff;
+  --border:              oklch(1 0 0 / 10%);
+  --input:               oklch(1 0 0 / 12%);
+  --ring:                var(--rd-orange-500);
+}
+
+/* Global base */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-family: var(--font-sans); }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utility helpers used across the design system pages */
+.rd-container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.rd-mono { font-family: var(--font-mono); }
+.rd-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; }

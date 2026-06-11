@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================================================
+   RAREDOUGHNUT — Design Tokens (xpf)
+   원본: .original/shared/tokens.css + components.css
+   shadcn/ui 토큰 계약을 Tailwind v4 @theme 으로 포팅.
+   ======================================================================== */
+@theme {
+  /* ── Brand palette (rd-*) — 기본 Tailwind 색상과 충돌 방지를 위해 prefix 유지 ── */
+  --color-rd-cream-50: oklch(0.985 0.012 80);
+  --color-rd-cream-100: oklch(0.965 0.02 82);
+  --color-rd-cream-200: oklch(0.935 0.028 82);
+
+  --color-rd-dough-200: oklch(0.86 0.055 70);
+  --color-rd-dough-400: oklch(0.7 0.095 60);
+  --color-rd-dough-600: oklch(0.54 0.095 45);
+  --color-rd-dough-800: oklch(0.36 0.075 40);
+  --color-rd-dough-900: oklch(0.245 0.045 40);
+
+  --color-rd-orange-300: oklch(0.82 0.13 55);
+  --color-rd-orange-500: oklch(0.72 0.175 50);
+  --color-rd-orange-600: oklch(0.64 0.18 42);
+
+  --color-rd-sprinkle-pink: oklch(0.78 0.15 10);
+  --color-rd-sprinkle-mint: oklch(0.82 0.09 165);
+  --color-rd-sprinkle-sky: oklch(0.8 0.1 230);
+  --color-rd-sprinkle-lemon: oklch(0.9 0.13 95);
+  --color-rd-sprinkle-grape: oklch(0.62 0.16 310);
+
+  --color-rd-success: oklch(0.68 0.14 150);
+  --color-rd-warning: oklch(0.78 0.15 75);
+  --color-rd-danger: oklch(0.62 0.21 25);
+
+  /* ── Radius ── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+
+  /* ── Fonts ── */
+  --font-sans: var(--font-pretendard), "Pretendard", "Geist", ui-sans-serif,
+    -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, Menlo,
+    monospace;
+
+  /* ── Elevation (warm-tinted) ── */
+  --shadow-rd-xs: 0 1px 2px oklch(0.36 0.075 40 / 0.06);
+  --shadow-rd-sm: 0 1px 3px oklch(0.36 0.075 40 / 0.08),
+    0 1px 2px oklch(0.36 0.075 40 / 0.04);
+  --shadow-rd-md: 0 4px 12px oklch(0.36 0.075 40 / 0.1),
+    0 2px 4px oklch(0.36 0.075 40 / 0.05);
+  --shadow-rd-lg: 0 12px 32px oklch(0.36 0.075 40 / 0.12),
+    0 4px 8px oklch(0.36 0.075 40 / 0.06);
 }
 
+/* ── shadcn 시맨틱 → Tailwind 색상 유틸 매핑 (inline: 런타임 var 참조 → 다크모드 반영) ── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── shadcn 시맨틱 변수 — LIGHT (브랜드 기본 모드) ── */
+:root {
+  --radius: 0.625rem;
+
+  --background: var(--color-rd-cream-50);
+  --foreground: var(--color-rd-dough-900);
+
+  --card: #ffffff;
+  --card-foreground: var(--color-rd-dough-900);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--color-rd-dough-900);
+
+  --primary: var(--color-rd-dough-900);
+  --primary-foreground: var(--color-rd-cream-50);
+
+  --secondary: var(--color-rd-cream-100);
+  --secondary-foreground: var(--color-rd-dough-900);
+
+  --muted: var(--color-rd-cream-100);
+  --muted-foreground: var(--color-rd-dough-600);
+
+  --accent: var(--color-rd-orange-500);
+  --accent-foreground: #ffffff;
+
+  --destructive: var(--color-rd-danger);
+  --destructive-foreground: #ffffff;
+
+  --border: var(--color-rd-cream-200);
+  --input: var(--color-rd-cream-200);
+  --ring: var(--color-rd-orange-500);
+}
+
+.dark {
+  --background: oklch(0.18 0.02 50);
+  --foreground: var(--color-rd-cream-50);
+  --card: oklch(0.23 0.025 50);
+  --card-foreground: var(--color-rd-cream-50);
+  --popover: oklch(0.23 0.025 50);
+  --popover-foreground: var(--color-rd-cream-50);
+  --primary: var(--color-rd-cream-50);
+  --primary-foreground: var(--color-rd-dough-900);
+  --secondary: oklch(0.28 0.025 50);
+  --secondary-foreground: var(--color-rd-cream-50);
+  --muted: oklch(0.28 0.025 50);
+  --muted-foreground: oklch(0.72 0.025 70);
+  --accent: var(--color-rd-orange-500);
+  --accent-foreground: #ffffff;
+  --destructive: var(--color-rd-danger);
+  --destructive-foreground: #ffffff;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: var(--color-rd-orange-500);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 }

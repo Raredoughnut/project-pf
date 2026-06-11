@@ -1,0 +1,547 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Raredoughnut Design System" subtitle="Full system — foundations + components" -->
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Raredoughnut — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="shared/tokens.css" />
+<link rel="stylesheet" href="shared/components.css" />
+<style>
+  /* Page chrome */
+  .page { min-height: 100vh; display: grid; grid-template-columns: 240px 1fr; }
+  .sidenav {
+    position: sticky; top: 0; height: 100vh; padding: 24px 20px;
+    background: #fff; border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+  .sidenav__brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .sidenav__brand img { width: 36px; height: 36px; border-radius: 8px; }
+  .sidenav__brand b { font-family: var(--font-display); font-size: 15px; letter-spacing: -0.01em; }
+  .sidenav__group { margin-bottom: 24px; }
+  .sidenav__group-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rd-dough-600); margin-bottom: 8px; padding-left: 10px; }
+  .sidenav a { display: block; padding: 7px 10px; border-radius: 6px; font-size: 13px; color: var(--foreground); text-decoration: none; }
+  .sidenav a:hover { background: var(--secondary); }
+  .sidenav a.active { background: var(--rd-cream-100); color: var(--rd-dough-900); font-weight: 600; }
+
+  .main { padding: 56px 64px 96px; max-width: 1120px; }
+
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; padding-bottom: 40px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+  .hero .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rd-orange-600); margin-bottom: 16px; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: 64px; line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 16px; }
+  .hero h1 em { font-style: italic; color: var(--rd-orange-600); }
+  .hero p { font-size: 17px; color: var(--muted-foreground); max-width: 540px; line-height: 1.5; margin: 0; }
+  .hero__mark img { width: 160px; height: 160px; display: block; }
+
+  section { margin-bottom: 80px; scroll-margin-top: 24px; }
+  section > header { margin-bottom: 24px; }
+  section > header h2 { font-family: var(--font-display); font-size: 34px; font-weight: 500; letter-spacing: -0.025em; margin: 0 0 6px; }
+  section > header p { color: var(--muted-foreground); margin: 0; font-size: 14px; max-width: 620px; }
+
+  /* Color palette */
+  .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .swatch { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .swatch__chip { height: 96px; }
+  .swatch__body { padding: 12px 14px; }
+  .swatch__name { font-size: 13px; font-weight: 600; margin: 0; }
+  .swatch__val { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); margin-top: 2px; }
+  .palette-row-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rd-dough-600); margin: 32px 0 12px; }
+
+  /* Typography specimens */
+  .type-row { display: grid; grid-template-columns: 140px 1fr 200px; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--border); align-items: baseline; }
+  .type-row:last-child { border-bottom: none; }
+  .type-row__meta { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); letter-spacing: 0.04em; text-transform: uppercase; }
+  .type-row__specs { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); text-align: right; }
+
+  /* Spec list */
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .spec { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; background: #fff; }
+  .spec__name { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 8px; }
+  .spec__val { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+  .spec__demo { margin-top: 10px; background: var(--rd-cream-100); height: 28px; }
+
+  /* Component showcase grid */
+  .showcase {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: #fff;
+  }
+  .showcase__head {
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; font-weight: 600;
+  }
+  .showcase__head .kind { font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); font-weight: 500; }
+  .showcase__body { padding: 32px; background: var(--rd-cream-50); }
+  .showcase__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px; }
+  .showcase__row:last-child { margin-bottom: 0; }
+  .showcase__label { font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.06em; min-width: 96px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Logo usage */
+  .logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .logo-tile {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px; display: flex; align-items: center; justify-content: center;
+    min-height: 180px; position: relative;
+  }
+  .logo-tile small { position: absolute; top: 10px; left: 12px; font-size: 11px; color: var(--muted-foreground); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  .logo-tile--cream { background: var(--rd-cream-50); }
+  .logo-tile--dough { background: var(--rd-dough-900); }
+  .logo-tile--orange { background: var(--rd-orange-500); }
+  .logo-tile img { max-width: 100%; max-height: 140px; }
+
+  /* Iconography */
+  .icon-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .icon-tile {
+    aspect-ratio: 1; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; background: #fff;
+  }
+  .icon-tile svg { width: 22px; height: 22px; stroke: var(--rd-dough-800); }
+  .icon-tile span { font-size: 10px; color: var(--muted-foreground); font-family: var(--font-mono); }
+
+  /* Footer */
+  .page-foot { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted-foreground); }
+  .page-foot a { color: var(--rd-orange-600); }
+
+  /* Flag note for substituted assets */
+  .note {
+    background: oklch(from var(--rd-orange-500) 0.96 c h);
+    border: 1px solid oklch(from var(--rd-orange-500) 0.88 c h);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-size: 13px; color: var(--rd-dough-800);
+    display: flex; gap: 10px; align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .note b { color: var(--rd-dough-900); }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <aside class="sidenav">
+    <div class="sidenav__brand">
+      <img src="assets/logo.png" alt="Raredoughnut" />
+      <b>Raredoughnut</b>
+    </div>
+
+    <div class="sidenav__group">
+      <div class="sidenav__group-title">Foundations</div>
+      <a href="#overview" class="active">Overview</a>
+      <a href="#brand">Brand & logo</a>
+      <a href="#color">Color</a>
+      <a href="#type">Typography</a>
+      <a href="#space">Space & radius</a>
+      <a href="#elevation">Elevation</a>
+      <a href="#icons">Iconography</a>
+    </div>
+
+    <div class="sidenav__group">
+      <div class="sidenav__group-title">Components</div>
+      <a href="#buttons">Buttons</a>
+      <a href="#inputs">Inputs</a>
+      <a href="#badges">Badges & chips</a>
+      <a href="#cards">Cards</a>
+      <a href="#avatars">Avatars</a>
+    </div>
+
+    <div class="sidenav__group">
+      <div class="sidenav__group-title">Product kits</div>
+      <a href="kits/xpf.html">xpf — profile</a>
+      <a href="kits/otogedojo.html">otogedojo — challenges</a>
+    </div>
+
+    <div class="sidenav__group">
+      <div class="sidenav__group-title">Templates</div>
+      <a href="templates/slides.html">Slide deck</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="hero" id="overview">
+      <div>
+        <div class="eyebrow">Raredoughnut · Design System v0.1</div>
+        <h1>A shared <em>warm</em> system<br/>for rare products.</h1>
+        <p>Foundations and components behind <b>xpf</b> (extra profile for X) and <b>otogedojo</b> (music-game skill todolist). Built on top of shadcn/ui + Tailwind tokens already used in both codebases — reskinned with a warm doughnut palette.</p>
+      </div>
+      <div class="hero__mark"><img src="assets/logo.png" alt="" /></div>
+    </div>
+
+    <div class="note">
+      <span>⚑</span>
+      <div><b>Substitutions flagged.</b> Pretendard (Korean UI), Fraunces (display serif) and Geist Mono are used in place of an unspecified brand type system. Both source codebases ship with default shadcn/ui grayscale tokens — the warm palette below is derived from the Raredoughnut logo and is the new source of truth.</div>
+    </div>
+
+    <!-- ===================== BRAND ===================== -->
+    <section id="brand">
+      <header>
+        <h2>Brand & logo</h2>
+        <p>The mark centers a "rare" glazed doughnut — cream interior, warm crust, orange sprinkle. Keep clearspace equal to the doughnut's hole on all sides.</p>
+      </header>
+
+      <div class="logo-grid">
+        <div class="logo-tile logo-tile--cream"><small>Primary / cream bg</small><img src="assets/logo.png" alt="" /></div>
+        <div class="logo-tile logo-tile--dough"><small style="color:var(--rd-cream-200);">On espresso</small><img src="assets/logo.png" alt="" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));" /></div>
+        <div class="logo-tile logo-tile--orange"><small style="color:#fff;">On accent</small><img src="assets/logo.png" alt="" /></div>
+      </div>
+    </section>
+
+    <!-- ===================== COLOR ===================== -->
+    <section id="color">
+      <header>
+        <h2>Color</h2>
+        <p>A warm palette in oklch. Dough tones carry text and structure. Orange is the only brand accent — used sparingly for primary actions and focus. Sprinkle colors are reserved for tags, game chips, and data viz.</p>
+      </header>
+
+      <div class="palette-row-title">Cream · surface</div>
+      <div class="palette">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-cream-50)"></div><div class="swatch__body"><p class="swatch__name">cream-50</p><p class="swatch__val">--background</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-cream-100)"></div><div class="swatch__body"><p class="swatch__name">cream-100</p><p class="swatch__val">--secondary / --muted</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-cream-200)"></div><div class="swatch__body"><p class="swatch__name">cream-200</p><p class="swatch__val">--border</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#ffffff"></div><div class="swatch__body"><p class="swatch__name">white</p><p class="swatch__val">--card / --popover</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-900)"></div><div class="swatch__body"><p class="swatch__name">dough-900</p><p class="swatch__val">--foreground / --primary</p></div></div>
+      </div>
+
+      <div class="palette-row-title">Dough · text & structure</div>
+      <div class="palette">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-200)"></div><div class="swatch__body"><p class="swatch__name">dough-200</p><p class="swatch__val">glaze highlight</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-400)"></div><div class="swatch__body"><p class="swatch__name">dough-400</p><p class="swatch__val">mid dough</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-600)"></div><div class="swatch__body"><p class="swatch__name">dough-600</p><p class="swatch__val">--muted-foreground</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-800)"></div><div class="swatch__body"><p class="swatch__name">dough-800</p><p class="swatch__val">body text alt</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-dough-900)"></div><div class="swatch__body"><p class="swatch__name">dough-900</p><p class="swatch__val">espresso · primary</p></div></div>
+      </div>
+
+      <div class="palette-row-title">Orange · accent</div>
+      <div class="palette">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-orange-300)"></div><div class="swatch__body"><p class="swatch__name">orange-300</p><p class="swatch__val">soft accent</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-orange-500)"></div><div class="swatch__body"><p class="swatch__name">orange-500</p><p class="swatch__val">--accent / --ring</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-orange-600)"></div><div class="swatch__body"><p class="swatch__name">orange-600</p><p class="swatch__val">hover / pressed</p></div></div>
+      </div>
+
+      <div class="palette-row-title">Sprinkles · tags & data viz</div>
+      <div class="palette">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-sprinkle-pink)"></div><div class="swatch__body"><p class="swatch__name">pink</p><p class="swatch__val">sprinkle</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-sprinkle-mint)"></div><div class="swatch__body"><p class="swatch__name">mint</p><p class="swatch__val">sprinkle</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-sprinkle-sky)"></div><div class="swatch__body"><p class="swatch__name">sky</p><p class="swatch__val">sprinkle</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-sprinkle-lemon)"></div><div class="swatch__body"><p class="swatch__name">lemon</p><p class="swatch__val">sprinkle</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--rd-sprinkle-grape)"></div><div class="swatch__body"><p class="swatch__name">grape</p><p class="swatch__val">sprinkle</p></div></div>
+      </div>
+    </section>
+
+    <!-- ===================== TYPOGRAPHY ===================== -->
+    <section id="type">
+      <header>
+        <h2>Typography</h2>
+        <p><b>Pretendard Variable</b> for Korean + Latin UI — the default choice for modern Korean product UI. <b>Fraunces</b> (opsz) for marketing display and headlines. <b>Geist Mono</b> for code and specs.</p>
+      </header>
+
+      <div class="rd-card" style="padding: 8px 24px;">
+        <div class="type-row">
+          <div class="type-row__meta">Display · serif</div>
+          <div style="font-family: var(--font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.03em; line-height: 1;">Rare by <em style="color:var(--rd-orange-600);">design</em>.</div>
+          <div class="type-row__specs">Fraunces · 48/1 · -3%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">H1</div>
+          <div class="rd-h1">챌린지 관리, 제대로.</div>
+          <div class="type-row__specs">Pretendard · 40/1.15 · -2.5%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">H2</div>
+          <div class="rd-h2">maimai DX 챌린지</div>
+          <div class="type-row__specs">Pretendard 700 · 28/1.2 · -2%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">H3</div>
+          <div class="rd-h3">Falsum Atlantis.</div>
+          <div class="type-row__specs">Pretendard 700 · 20/1.3 · -1.5%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">Body</div>
+          <div class="rd-body">리듬게임의 보면 목표를 투두리스트로 관리하고, 고수들이 만든 과제를 받아 도전하세요.</div>
+          <div class="type-row__specs">Pretendard 400 · 15/1.55</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">Body · small</div>
+          <div class="rd-body-sm">Profile last updated 2 minutes ago · 프로필이 방금 업데이트되었습니다.</div>
+          <div class="type-row__specs">Pretendard 400 · 13/1.5</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">Eyebrow</div>
+          <div class="rd-eyebrow">Extra profile for X</div>
+          <div class="type-row__specs">Pretendard 700 · 11 · +12%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__meta">Mono</div>
+          <div class="rd-mono" style="font-size:14px;">--rd-orange-500: oklch(0.720 0.175 50);</div>
+          <div class="type-row__specs">Geist Mono · 14/1.5</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SPACE & RADIUS ===================== -->
+    <section id="space">
+      <header>
+        <h2>Space & radius</h2>
+        <p>4px spacing base. Default radius matches the shadcn <code class="rd-mono" style="font-size:12px;">--radius: 0.625rem</code> already in <code class="rd-mono" style="font-size:12px;">xpf-vite</code>.</p>
+      </header>
+
+      <div class="specs">
+        <div class="spec"><p class="spec__name">space-1</p><p class="spec__val">4px</p><div class="spec__demo" style="width:4px;"></div></div>
+        <div class="spec"><p class="spec__name">space-2</p><p class="spec__val">8px</p><div class="spec__demo" style="width:8px;"></div></div>
+        <div class="spec"><p class="spec__name">space-3</p><p class="spec__val">12px</p><div class="spec__demo" style="width:12px;"></div></div>
+        <div class="spec"><p class="spec__name">space-4</p><p class="spec__val">16px</p><div class="spec__demo" style="width:16px;"></div></div>
+        <div class="spec"><p class="spec__name">space-6</p><p class="spec__val">24px</p><div class="spec__demo" style="width:24px;"></div></div>
+        <div class="spec"><p class="spec__name">space-8</p><p class="spec__val">32px</p><div class="spec__demo" style="width:32px;"></div></div>
+        <div class="spec"><p class="spec__name">space-12</p><p class="spec__val">48px</p><div class="spec__demo" style="width:48px;"></div></div>
+        <div class="spec"><p class="spec__name">space-16</p><p class="spec__val">64px</p><div class="spec__demo" style="width:64px;"></div></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:16px;">
+        <div class="spec"><p class="spec__name">radius-sm</p><p class="spec__val">6px</p><div style="margin-top:10px; height:40px; background:var(--rd-cream-100); border-radius:6px;"></div></div>
+        <div class="spec"><p class="spec__name">radius-md</p><p class="spec__val">8px</p><div style="margin-top:10px; height:40px; background:var(--rd-cream-100); border-radius:8px;"></div></div>
+        <div class="spec"><p class="spec__name">radius (default)</p><p class="spec__val">10px</p><div style="margin-top:10px; height:40px; background:var(--rd-cream-100); border-radius:10px;"></div></div>
+        <div class="spec"><p class="spec__name">radius-xl</p><p class="spec__val">14px</p><div style="margin-top:10px; height:40px; background:var(--rd-cream-100); border-radius:14px;"></div></div>
+        <div class="spec"><p class="spec__name">radius-full</p><p class="spec__val">9999</p><div style="margin-top:10px; height:40px; background:var(--rd-cream-100); border-radius:9999px;"></div></div>
+      </div>
+    </section>
+
+    <!-- ===================== ELEVATION ===================== -->
+    <section id="elevation">
+      <header>
+        <h2>Elevation</h2>
+        <p>Warm, dough-tinted shadows — never pure black. Keep cards flat by default; raise only on hover or for menus/dialogs.</p>
+      </header>
+      <div class="specs">
+        <div class="spec" style="box-shadow: var(--shadow-xs);"><p class="spec__name">shadow-xs</p><p class="spec__val">hairline</p></div>
+        <div class="spec" style="box-shadow: var(--shadow-sm);"><p class="spec__name">shadow-sm</p><p class="spec__val">card hover</p></div>
+        <div class="spec" style="box-shadow: var(--shadow-md);"><p class="spec__name">shadow-md</p><p class="spec__val">popover / menu</p></div>
+        <div class="spec" style="box-shadow: var(--shadow-lg);"><p class="spec__name">shadow-lg</p><p class="spec__val">dialog</p></div>
+      </div>
+    </section>
+
+    <!-- ===================== ICONS ===================== -->
+    <section id="icons">
+      <header>
+        <h2>Iconography</h2>
+        <p><b>Lucide</b> (22px, 1.75 stroke) is already used in xpf-vite. We standardize on Lucide across both products — replacing the Solar/Iconify mix in otogedojo. Shown below at native stroke.</p>
+      </header>
+      <div class="icon-grid">
+        <!-- Inline Lucide-style icons -->
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>home</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>user</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>calendar</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><span>star</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>check</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>plus</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>search</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg><span>settings</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>logout</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>mail</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>message</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>heart</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h3l6-6"/><path d="m22 2-2 2h-2v2l-2 2 4 4 2-2h2V8l2-2z"/><path d="m15 5 4 4"/></svg><span>edit</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M10 3h4"/></svg><span>trash</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>music</span></div>
+        <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg><span>trophy</span></div>
+      </div>
+    </section>
+
+    <!-- ===================== BUTTONS ===================== -->
+    <section id="buttons">
+      <header>
+        <h2>Buttons</h2>
+        <p>Variants map 1:1 to the shadcn <code class="rd-mono" style="font-size:12px;">&lt;Button&gt;</code> in both repos — <code class="rd-mono" style="font-size:12px;">default · outline · ghost · link · destructive</code> — plus a new <code class="rd-mono" style="font-size:12px;">accent</code> variant for conversion actions.</p>
+      </header>
+      <div class="showcase">
+        <div class="showcase__head">Variants <span class="kind">rd-btn--*</span></div>
+        <div class="showcase__body">
+          <div class="showcase__row"><div class="showcase__label">Default</div>
+            <button class="rd-btn rd-btn--primary">완료하기</button>
+            <button class="rd-btn rd-btn--accent">프로필 편집</button>
+            <button class="rd-btn rd-btn--outline">Cancel</button>
+            <button class="rd-btn rd-btn--ghost">홈</button>
+            <button class="rd-btn rd-btn--link">로그인 →</button>
+            <button class="rd-btn rd-btn--destructive">삭제</button>
+          </div>
+          <div class="showcase__row"><div class="showcase__label">Sizes</div>
+            <button class="rd-btn rd-btn--primary rd-btn--sm">Small</button>
+            <button class="rd-btn rd-btn--primary">Medium</button>
+            <button class="rd-btn rd-btn--primary rd-btn--lg">Large</button>
+            <button class="rd-btn rd-btn--accent rd-btn--icon" aria-label="add"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="showcase__row"><div class="showcase__label">Disabled</div>
+            <button class="rd-btn rd-btn--primary" disabled>Disabled</button>
+            <button class="rd-btn rd-btn--accent" disabled>Disabled</button>
+            <button class="rd-btn rd-btn--outline" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== INPUTS ===================== -->
+    <section id="inputs">
+      <header>
+        <h2>Inputs</h2>
+        <p>Form primitives shared across xpf's profile editors and otogedojo's song search.</p>
+      </header>
+      <div class="showcase">
+        <div class="showcase__head">Fields <span class="kind">rd-input · rd-textarea</span></div>
+        <div class="showcase__body">
+          <div class="two-col">
+            <div>
+              <label class="rd-label" style="display:block; margin-bottom:6px;">X 계정 아이디</label>
+              <input class="rd-input" placeholder="@onehunnitconst" />
+            </div>
+            <div>
+              <label class="rd-label" style="display:block; margin-bottom:6px;">닉네임</label>
+              <input class="rd-input" value="쉐프 도넛" />
+            </div>
+            <div style="grid-column: 1/-1;">
+              <label class="rd-label" style="display:block; margin-bottom:6px;">자기소개</label>
+              <textarea class="rd-textarea" placeholder="간단하게 자기소개를 적어주세요.">리듬게임 좋아합니다. maimai DX 14+ 위주로 연습 중.</textarea>
+            </div>
+            <div>
+              <label class="rd-label" style="display:block; margin-bottom:6px;">Focused</label>
+              <input class="rd-input" value="Falsum Atlantis." style="border-color: var(--rd-orange-500); box-shadow: 0 0 0 3px oklch(from var(--rd-orange-500) l c h / 0.2);" />
+            </div>
+            <div>
+              <label class="rd-label" style="display:block; margin-bottom:6px;">Disabled</label>
+              <input class="rd-input" value="잠김" disabled style="opacity: 0.5;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BADGES ===================== -->
+    <section id="badges">
+      <header>
+        <h2>Badges & chips</h2>
+        <p>Badges label taxonomy (game · difficulty). Chips carry numeric difficulty values — pulled straight from otogedojo's challenge card.</p>
+      </header>
+      <div class="showcase">
+        <div class="showcase__head">Badge variants <span class="kind">rd-badge--*</span></div>
+        <div class="showcase__body">
+          <div class="showcase__row"><div class="showcase__label">Neutral</div>
+            <span class="rd-badge">DX</span>
+            <span class="rd-badge">STD</span>
+            <span class="rd-badge rd-badge--outline">BASIC</span>
+            <span class="rd-badge rd-badge--solid">MASTER</span>
+          </div>
+          <div class="showcase__row"><div class="showcase__label">Sprinkles</div>
+            <span class="rd-badge rd-badge--pink">Re:MASTER</span>
+            <span class="rd-badge rd-badge--mint">EXPERT</span>
+            <span class="rd-badge rd-badge--sky">ADVANCED</span>
+            <span class="rd-badge rd-badge--lemon">BASIC</span>
+            <span class="rd-badge rd-badge--grape">Ultima</span>
+          </div>
+          <div class="showcase__row"><div class="showcase__label">Accent</div>
+            <span class="rd-badge rd-badge--accent">완료</span>
+            <span class="rd-badge rd-badge--accent">BETA</span>
+          </div>
+          <div class="showcase__row"><div class="showcase__label">Difficulty chip</div>
+            <span class="rd-chip" style="background: oklch(0.78 0.15 10); color:#fff;">14 (14.5)</span>
+            <span class="rd-chip" style="background: oklch(0.72 0.16 35); color:#fff;">13 (13.2)</span>
+            <span class="rd-chip" style="background: oklch(0.70 0.14 95); color: var(--rd-dough-900);">12</span>
+            <span class="rd-chip" style="background: oklch(0.72 0.15 155); color:#fff;">10</span>
+            <span class="rd-chip" style="background: oklch(0.70 0.14 230); color:#fff;">8</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CARDS ===================== -->
+    <section id="cards">
+      <header>
+        <h2>Cards</h2>
+        <p>The container for nearly everything — profile rows in xpf and challenge rows in otogedojo. Flat by default; raised variant used for popovers and dialogs.</p>
+      </header>
+      <div class="two-col">
+        <div class="rd-card">
+          <div class="rd-eyebrow" style="margin-bottom: 10px;">Challenge · otogedojo</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div class="rd-h3" style="margin-bottom: 8px;">Falsum Atlantis.</div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="rd-badge">DX</span>
+                <span class="rd-badge rd-badge--solid">MASTER</span>
+                <span class="rd-chip" style="background: oklch(0.78 0.15 10); color:#fff;">14 (14.5)</span>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="text-align:right;">
+                <div class="rd-caption">랭크</div>
+                <div class="rd-h2" style="font-size:26px;">SSS+</div>
+              </div>
+              <button class="rd-btn rd-btn--primary rd-btn--sm">완료하기</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rd-card rd-card--raised">
+          <div class="rd-eyebrow" style="margin-bottom:10px;">Profile · xpf</div>
+          <div style="display:flex; gap: 14px; align-items:center;">
+            <div class="rd-avatar rd-avatar--lg" style="background: var(--rd-orange-300); color:#fff;">쉐프</div>
+            <div>
+              <div class="rd-h3">쉐프 도넛</div>
+              <div class="rd-body-sm rd-mono">@onehunnitconst</div>
+              <div class="rd-body" style="margin-top:8px;">리듬게임 좋아합니다. maimai DX 14+ 위주로 연습 중.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AVATARS ===================== -->
+    <section id="avatars">
+      <header>
+        <h2>Avatars</h2>
+        <p>Sizes match the four touch-points that appear across both apps: inline comment (sm), nav/row (md), profile header (lg), profile hero (xl).</p>
+      </header>
+      <div class="showcase">
+        <div class="showcase__head">Sizes <span class="kind">rd-avatar--sm/md/lg/xl</span></div>
+        <div class="showcase__body" style="gap: 24px;">
+          <div class="showcase__row" style="gap: 24px; align-items:end;">
+            <div style="text-align:center;"><div class="rd-avatar rd-avatar--sm" style="background: var(--rd-sprinkle-pink);">SP</div><div class="rd-caption" style="margin-top:6px;">sm · 28</div></div>
+            <div style="text-align:center;"><div class="rd-avatar rd-avatar--md" style="background: var(--rd-sprinkle-mint);">MN</div><div class="rd-caption" style="margin-top:6px;">md · 40</div></div>
+            <div style="text-align:center;"><div class="rd-avatar rd-avatar--lg" style="background: var(--rd-sprinkle-sky);">SK</div><div class="rd-caption" style="margin-top:6px;">lg · 72</div></div>
+            <div style="text-align:center;"><div class="rd-avatar rd-avatar--xl" style="background: var(--rd-orange-500);">쉐프</div><div class="rd-caption" style="margin-top:6px;">xl · 112</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-foot">
+      <div>© 2026 Raredoughnut · Design System v0.1</div>
+      <div>
+        <a href="kits/xpf.html">xpf kit</a> ·
+        <a href="kits/otogedojo.html">otogedojo kit</a> ·
+        <a href="templates/slides.html">slides</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Smooth scrollspy for the sidenav
+  const links = document.querySelectorAll('.sidenav a[href^="#"]');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const setActive = () => {
+    const y = window.scrollY + 80;
+    let current = sections[0];
+    for (const s of sections) { if (s.offsetTop <= y) current = s; }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+</script>
+</body>
+</html>
