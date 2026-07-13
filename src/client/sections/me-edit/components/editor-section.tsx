@@ -19,7 +19,7 @@ export function EditorSection({
   return (
     <div
       className={cn(
-        "grid gap-3.5 bg-rd-cream-50 border border-border rounded-lg p-4 mb-3",
+        "grid gap-3.5 bg-muted border border-border rounded-lg p-4 mb-3",
         trailing ? "grid-cols-[120px_1fr_auto]" : "grid-cols-[120px_1fr]",
         align === "start" ? "items-start" : "items-center"
       )}

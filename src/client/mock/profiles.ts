@@ -9,11 +9,11 @@ export const MY_PROFILE: Profile = {
   displayName: "쉐프 도넛",
   bio: "리듬게임 좋아합니다. maimai DX 14+ 위주로 연습 중.\n도넛 가게 주인장이기도 합니다 🍩",
   avatarText: "쉐프",
-  avatarColor: "var(--color-rd-orange-500)",
+  avatarColor: "var(--color-primary-main)",
   headerBackground:
     "radial-gradient(circle at 20% 40%, oklch(0.80 0.13 55 / 0.8) 0%, transparent 40%)," +
     "radial-gradient(circle at 80% 60%, oklch(0.82 0.09 165 / 0.6) 0%, transparent 45%)," +
-    "linear-gradient(135deg, var(--color-rd-dough-600), var(--color-rd-dough-800))",
+    "linear-gradient(135deg, var(--color-neutral-600), var(--color-neutral-800))",
   stats: {
     linkCount: 12,
     visits: 48,
@@ -62,7 +62,7 @@ export const MY_PROFILE: Profile = {
       url: "ohcdev.onehunnitconst.kr",
       category: "WRITE",
       icon: "write",
-      iconBg: "var(--color-rd-cream-100)",
+      iconBg: "var(--color-neutral-100)",
     },
   ],
 };
@@ -73,11 +73,11 @@ const YURI_PROFILE: Profile = {
   displayName: "유리 ユリ",
   bio: "SDVX Hierophant · iidx 皆伝. 츠이토로 곡 리뷰합니다.",
   avatarText: "Y",
-  avatarColor: "var(--color-rd-sprinkle-grape)",
+  avatarColor: "var(--color-purple-main)",
   headerBackground:
     "radial-gradient(circle at 20% 30%, oklch(0.82 0.09 165 / 0.8) 0%, transparent 45%)," +
     "radial-gradient(circle at 80% 70%, oklch(0.78 0.15 10 / 0.7) 0%, transparent 45%)," +
-    "linear-gradient(135deg, var(--color-rd-sprinkle-sky), var(--color-rd-sprinkle-grape))",
+    "linear-gradient(135deg, var(--color-blue-main), var(--color-purple-main))",
   stats: {
     linkCount: 9,
     visits: 1200,

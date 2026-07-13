@@ -25,7 +25,7 @@ export function ProfileTabs({ activeTab, onTabChange }: Props) {
           className={cn(
             "px-4 py-3 text-[13px] font-semibold cursor-pointer border-b-2 border-transparent transition-colors",
             activeTab === tab.key
-              ? "text-foreground border-rd-orange-500"
+              ? "text-foreground border-primary"
               : "text-muted-foreground"
           )}
         >

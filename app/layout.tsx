@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import { pretendard } from "@/src/fonts/pretendard";
 import "./globals.css";
 import QueryProvider from "@/src/components/query-provider";
 import { cn } from "@/lib/utils";
-
-const fraunces = Fraunces({
-  weight: ["500"],
-  style: ["italic", "normal"],
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
 
 const geistMono = Geist_Mono({
   weight: ["400", "500"],
@@ -37,10 +29,17 @@ export default function RootLayout({
       className={cn(
         "h-full antialiased font-sans",
         pretendard.variable,
-        fraunces.variable,
         geistMono.variable,
       )}
     >
+      <head>
+        {/* 디스플레이·헤드라인 = SUIT (CDN · SIL OFL). 본문 Pretendard는 자가호스팅(next/font/local).
+            dt/mn 과 동일한 타이포 조합. */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <QueryProvider>{children}</QueryProvider>
       </body>

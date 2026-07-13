@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 // 원본: .original/kits/xpf.html 의 .xpf-topbar (MainLayout.tsx)
 type NavItem = {
@@ -37,28 +38,30 @@ export function MainLayout({ authed = true, children }: Props) {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <header className="h-12 border-b border-border flex justify-center items-center bg-background sticky top-0 z-10">
-        <div className="w-full max-w-[720px] px-6 flex justify-between items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-[13px] font-bold cursor-pointer"
-          >
-            <Image
-              src="/assets/logo.png"
-              alt="xpf"
-              width={20}
-              height={20}
-              className="rounded"
-            />
-            XPF Beta
-          </Link>
+      <header className="h-14 border-b border-border flex justify-center items-center bg-background sticky top-0 z-10">
+        <div className="w-full max-w-[1440px] px-6 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-[13px] font-bold cursor-pointer"
+            >
+              <Image
+                src="/icons/opf-logo.svg"
+                alt="opf-logo"
+                width={45}
+                height={30}
+                className="rounded"
+              />
+            </Link>
+            <Input placeholder="프로필 검색" className="h-8 text-sm outline-none" />
+          </div>
 
           <nav className="flex gap-1 items-center">
             {navItems.map((item) => {
               const isActive = item.href ? pathname === item.href : false;
               const className = cn(
                 "bg-transparent border-none cursor-pointer font-sans text-[13px] text-foreground px-2.5 py-1.5 rounded-md transition-colors hover:bg-secondary",
-                isActive && "text-rd-orange-600 font-semibold"
+                isActive && "text-primary font-semibold",
               );
 
               if (item.href) {

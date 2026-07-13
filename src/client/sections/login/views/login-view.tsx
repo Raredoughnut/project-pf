@@ -98,7 +98,7 @@ export function LoginView({
 
         <div className="mt-5 text-xs text-muted-foreground text-center">
           아직 계정이 없으신가요?{" "}
-          <a href="#" className="text-rd-orange-600">
+          <a href="#" className="text-primary">
             회원가입
           </a>
         </div>

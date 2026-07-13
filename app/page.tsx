@@ -1,6 +1,10 @@
-import { redirect } from "next/navigation";
+import { MainLayout } from "@/src/client/layouts/main-layout";
+import { HomeContainer } from "@/src/client/sections/home/home-container";
 
 export default function Home() {
-  // 데모: 홈 진입 시 내 프로필로 이동
-  redirect("/me");
+  return (
+    <MainLayout>
+      <HomeContainer />
+    </MainLayout>
+  );
 }

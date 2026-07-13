@@ -1,7 +1,7 @@
 export function LoadingView() {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-32 text-muted-foreground">
-      <div className="w-7 h-7 rounded-full border-2 border-rd-cream-200 border-t-rd-orange-500 animate-spin" />
+      <div className="w-7 h-7 rounded-full border-2 border-neutral-200 border-t-primary animate-spin" />
       <p className="text-[13px]">불러오는 중…</p>
     </div>
   );
