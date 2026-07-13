@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "xpf — eXtra Profile",
+  title: "o.pf 확장 프로필",
   description:
     "X 프로필만으로는 부족한 당신을 위해. 링크, 프리셋, 기록을 한 곳에.",
 };
